@@ -109,7 +109,7 @@ _Force deletes the 'branch-name' and 'other-branch-name' branches._
 
 ### Notes
 
-All commands listed below can be run in any order. Ex:
+All commands listed above can be run in any order. Ex:
 
     $ ./gt.sh br -d branch other-branch
 
