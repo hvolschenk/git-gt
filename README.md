@@ -1,6 +1,6 @@
 # Git-GT
 --------
-Faster git
+Faster git. For now as a shell script, will still think about packaging once more functions are added.
 
 ### st: Status
 ----------
