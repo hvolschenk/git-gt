@@ -7,7 +7,9 @@ Faster git. For now as a shell script, will still think about packaging once mor
 Clears the terminal, shows a list of branches, and the current status
 
 __Usage:__
+
 Show the status
+
     $ ./gt.sh st
 
 ### br: Branch
