@@ -6,12 +6,9 @@ Faster git
 ----------
 Clears the terminal, shows a list of branches, and the current status
 
-_Usage:_
+__Usage:__
 * Show the status
   * $ ./gt.sh st
-    * -- clear
-    * -- git branch
-    * -- git status
 
 ### br: Branch
 ----------
