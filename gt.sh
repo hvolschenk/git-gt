@@ -2,6 +2,7 @@
 status=false
 branch=false
 add=false
+commit=false
 delete=false
 
 # The default list of flags
@@ -21,6 +22,8 @@ for argument; do
 			branch=true;;
 		ad)
 		  add=true;;
+		cm)
+		  commit=true;;
 		de)
 			delete=true;;
 		-d)
@@ -74,6 +77,18 @@ gt__ad () {
 	  files=.
 	fi
 	git add $files
+	exit 0
+}
+
+gt__cm () {
+	if [ -z "${variables[0]}" ]; then
+    message=''
+	else
+		message=-m "${variables[0]}"
+	fi
+	echo "----$message----"
+	`git commit $message`
+	exit 0
 }
 
 gt__de () {
@@ -115,7 +130,12 @@ if [ $add = true ]; then
 	gt__ad
 	exit 0
 fi
-# commit
+
+if [ $commit = true ]; then
+  gt__cm
+	exit 0
+fi
+
 # pull
 # merge
 # rebase
