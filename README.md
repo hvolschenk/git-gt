@@ -23,7 +23,7 @@ __Usage:__
 
 Show a list of all branches
 
-    $ ./gt.sh __br__
+    $ ./gt.sh br
 
 Switch to (check out) a branch
 
@@ -33,25 +33,25 @@ _This will check out a branch by the name 'branch-name'. However, if a branch by
 
 Create a new branch
 
-    $ ./gt.sh __br__ new-branch-name
+    $ ./gt.sh br new-branch-name
 
 _This will check out master and then check out a new branch with the name 'new-branch-name'._
 
 Create a new branch from an existing branch
 
-    $ ./gt.sh __br__ new-branch-name existing-branch-name
+    $ ./gt.sh br new-branch-name existing-branch-name
 
 _This will check out 'existing-branch-name' and the check out a new branch with the name 'new-branch-name'._
 
 Delete a branch or a list of branches
 
-    $ ./gt.sh __br__ -d branch-name other-branch-name
+    $ ./gt.sh br -d branch-name other-branch-name
 
 _This will delete both 'branch-name' and 'other-branch-name'._
 
 Force delete a branch or a list of branches
 
-    $ ./gt.sh __br__ -D branch-name other-branch-name
+    $ ./gt.sh br -D branch-name other-branch-name
 
 _This will force delete 'branch-name' and 'other-branch-name'._
 
@@ -67,12 +67,12 @@ __Usage:__
 
 Delete a branch or a list of branches
 
-    $ ./gt.sh __de__ branch-name other-branch-name
+    $ ./gt.sh de branch-name other-branch-name
 
 _Deletes 'branch-name' and 'other-branch-name' branches._
 
 Force delete a branch or a list of branches
 
-    $ ./gt.sh __de__ -D branch-name other-branch-name
+    $ ./gt.sh de -D branch-name other-branch-name
 
 _Force deletes the 'branch-name' and 'other-branch-name' branches._
