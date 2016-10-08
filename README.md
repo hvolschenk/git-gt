@@ -69,6 +69,20 @@ Add a specific list of files to the staging area
 
     $ ./gt.sh ad file-name other-file-name
 
+### cm: Commit
+--------------
+Commit your changes
+
+__Usage__
+
+Commit, letting git decide the editor for editing commit messages
+
+    $ ./gt.sh cm
+
+Commit, adding the commit message in the command
+
+    $ ./gt.sh cm "Commit message here"
+
 ### de: Delete
 ----------
 Delete a branch, or list of branches
