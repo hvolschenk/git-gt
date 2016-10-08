@@ -81,13 +81,11 @@ gt__ad () {
 }
 
 gt__cm () {
-	if [ -z "${variables[0]}" ]; then
-    message=''
-	else
-		message=-m "${variables[0]}"
+	local commitMessage='git commit';
+	if [ ! -z "${variables[0]}" ]; then
+		commitMessage="${commitMessage} -m \"${variables[0]}\""
 	fi
-	echo "----$message----"
-	`git commit $message`
+	eval $commitMessage
 	exit 0
 }
 
