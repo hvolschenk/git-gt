@@ -1,6 +1,6 @@
 # Git-GT
 --------
-## Faster git
+Faster git
 
 ### st: Status
 ----------
@@ -16,9 +16,11 @@ _Usage:_
 ### br: Branch
 ----------
 Switch to, or create, a new branch
+
 _Flags:_
 * -d: Delete a branch
 * -D: Force delete a branch
+
 _Usage:_
 * Show a list of all branches
   * $ ./gt.sh br
@@ -51,8 +53,10 @@ _Usage:_
 ### de: Delete
 ----------
 Delete a branch, or list of branches
+
 _Flags:_
 * -D: Force delete a branch
+
 _Usage:_
 * Delete a branch or a list of branches
   * $ ./gt.sh de branch-name other-branch-name
