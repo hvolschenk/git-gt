@@ -55,6 +55,20 @@ Force delete a branch or a list of branches
 
 _This will force delete 'branch-name' and 'other-branch-name'._
 
+### ad: Add
+-----------
+Add a file or files to the staging area
+
+__Usage__
+
+Add all unstaged files to the staging area
+
+    $ ./gt.sh ad
+
+Add a specific list of files to the staging area
+
+    $ ./gt.sh ad file-name other-file-name
+
 ### de: Delete
 ----------
 Delete a branch, or list of branches

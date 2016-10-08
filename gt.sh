@@ -1,6 +1,7 @@
 # The default set of options
 status=false
 branch=false
+add=false
 delete=false
 
 # The default list of flags
@@ -18,6 +19,8 @@ for argument; do
 			status=true;;
 		br)
 			branch=true;;
+		ad)
+		  add=true;;
 		de)
 			delete=true;;
 		-d)
@@ -65,10 +68,18 @@ gt__br () {
 
 }
 
+gt__ad () {
+  files=$(IFS=, ; echo "${variables[*]}")
+	if [ -z $files ]; then
+	  files=.
+	fi
+	git add $files
+}
+
 gt__de () {
 
 	if [ -z ${variables[0]} ]; then
-		echo 'No branch selected'
+		echo No branch selected
 		exit 1;
 	fi
 
@@ -100,7 +111,10 @@ if [ $branch = true ]; then
 	exit 0
 fi
 
-# add
+if [ $add = true ]; then
+	gt__ad
+	exit 0
+fi
 # commit
 # pull
 # merge
