@@ -1,5 +1,6 @@
 # The default set of options
 clone=false
+remoteAdd=false
 status=false
 branch=false
 add=false
@@ -23,6 +24,8 @@ for argument; do
   case $argument in
     cl)
       clone=true;;
+    ra)
+      remoteAdd=true;;
     st)
       status=true;;
     br)
@@ -63,6 +66,15 @@ gt__cl () {
   git clone ${variables[0]} ${variables[1]}
 }
 
+gt__ra () {
+  if [ -z ${variables[0]} ]; then
+    echo 'Please specify a remote url when adding a remote: gt ra <url>'
+  fi
+
+  git init
+  git remote add origin ${variables[0]}
+}
+
 gt__st () {
   clear
   git branch
@@ -74,28 +86,27 @@ gt__br () {
 
   if [ -z $branch ]; then
     git branch
-    exit 0
   fi
 
   if [ $flagDelete = true ] || [ $flagForceDelete = true ]; then
     gt__de
-    exit 0
   fi
 
   checkout="`git checkout $branch 2>&1`"
 
   if [ $? -eq 0 ]; then
     echo "$checkout"
-    exit 0
   else
     git checkout ${variables[1]:-master}
     git checkout -b $branch
-    exit 0
   fi
+
+  unset -v branch checkout
+  exit 0
 }
 
 gt__ad () {
-  files=$(IFS=, ; echo "${variables[*]}")
+  local files=$(IFS=, ; echo "${variables[*]}")
   if [ -z $files ]; then
     files=.
   fi
@@ -128,7 +139,7 @@ gt__de () {
     exit 1;
   fi
 
-  deleteString='-d'
+  local deleteString='-d'
   if [ $flagForceDelete = true ]; then
     deleteString='-D'
   fi
@@ -175,7 +186,10 @@ if [ $clone = true ]; then
   exit 0
 fi
 
-# remote add (remember to init)
+if [ $remoteAdd = true ]; then
+  gt__ra
+  exit 0
+fi
 
 if [ $status = true ]; then
   gt__st
@@ -222,10 +236,7 @@ if [ $rebase = true ]; then
   exit 0
 fi
 
-# fetch
-# stash
-
-unset -f gt__cl gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
-unset -v clone status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
+unset -f gt__cl gt__ra gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
+unset -v clone remoteAdd status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
 
 exit 0
