@@ -13,6 +13,20 @@ If you are unsure where to place the above line, you can read my [Bash alias tut
 
 ## Commands:
 
+### cl: Clone
+
+Clone a repository onto your local machine
+
+__Usage__
+
+Clone from a url
+
+    $ gt cl git://path.to.repository
+
+Clone a url into a specific folder
+
+    $ gt cl git://path.to.repository folder-name
+
 ### st: Status
 
 Clears the terminal, shows a list of branches, and the current status
