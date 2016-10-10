@@ -27,6 +27,18 @@ Clone a url into a specific folder
 
     $ gt cl git://path.to.repository folder-name
 
+### ra: Remote add
+
+Add a remote repository url
+
+__Usage__
+
+Add a remote repository url
+
+    $ gt ra git://path.to.repository
+
+_This initializes an empty git repository in the current folder and adds the remote url to the current folder._
+
 ### st: Status
 
 Clears the terminal, shows a list of branches, and the current status
