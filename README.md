@@ -85,6 +85,16 @@ Commit, adding the commit message in the command
 
     $ ./gt.sh cm "Commit message here"
 
+### pl: Pull
+
+Pull the latest changes for your current branch
+
+__Usage__
+
+Pull the latest changes for your current branch
+
+    $ ./gt.sh pl
+
 ### de: Delete
 
 Delete a branch, or list of branches
@@ -123,4 +133,4 @@ Could also be written as
 
 Or any other way you can imagine it.
 
-The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, de, cm, de - or anyother command name that I might have forgotten to list here
+The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, de - or anyother command name that I might have forgotten to list here

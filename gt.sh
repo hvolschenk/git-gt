@@ -3,6 +3,7 @@ status=false
 branch=false
 add=false
 commit=false
+pull=false
 delete=false
 
 # The default list of flags
@@ -24,6 +25,8 @@ for argument; do
       add=true;;
     cm)
       commit=true;;
+    pl)
+      pull=true;;
     de)
       delete=true;;
     -d)
@@ -89,6 +92,12 @@ gt__cm () {
   exit 0
 }
 
+gt__pl () {
+  local currentBranchName="`git rev-parse --abbrev-ref HEAD`"
+  git pull origin $currentBranchName
+  exit 0
+}
+
 gt__de () {
 
   if [ -z ${variables[0]} ]; then
@@ -134,6 +143,11 @@ if [ $commit = true ]; then
   exit 0
 fi
 
+if [ $pull = true ]; then
+  gt__pl
+  exit 0
+fi
+
 # pull
 # merge
 # rebase
@@ -146,7 +160,7 @@ if [ $delete = true ]; then
   exit 0
 fi
 
-unset -f gt__br gt__st
-unset -v status branch delete flagDelete flagForceDelete variables variablesCount
+unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__de
+unset -v status branch add commit pull delete flagDelete flagForceDelete variables variablesCount
 
 exit 0
