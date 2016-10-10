@@ -4,6 +4,7 @@ branch=false
 add=false
 commit=false
 pull=false
+push=false
 delete=false
 
 # The default list of flags
@@ -27,6 +28,8 @@ for argument; do
       commit=true;;
     pl)
       pull=true;;
+    ps)
+      push=true;;
     de)
       delete=true;;
     -d)
@@ -38,6 +41,10 @@ for argument; do
       ((variablesCount+=1));;
   esac
 done
+
+__getCurrentBranchName () {
+  echo "`git rev-parse --abbrev-ref HEAD`"
+}
 
 #st: status
 gt__st () {
@@ -93,8 +100,12 @@ gt__cm () {
 }
 
 gt__pl () {
-  local currentBranchName="`git rev-parse --abbrev-ref HEAD`"
-  git pull origin $currentBranchName
+  git pull origin $(__getCurrentBranchName)
+  exit 0
+}
+
+gt__ps () {
+  git push origin $(__getCurrentBranchName)
   exit 0
 }
 
@@ -148,7 +159,11 @@ if [ $pull = true ]; then
   exit 0
 fi
 
-# pull
+if [ $push = true ]; then
+  gt__ps
+  exit 0
+fi
+
 # merge
 # rebase
 # fetch
@@ -160,7 +175,7 @@ if [ $delete = true ]; then
   exit 0
 fi
 
-unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__de
-unset -v status branch add commit pull delete flagDelete flagForceDelete variables variablesCount
+unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de
+unset -v status branch add commit pull push delete flagDelete flagForceDelete variables variablesCount
 
 exit 0

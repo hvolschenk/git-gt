@@ -95,6 +95,16 @@ Pull the latest changes for your current branch
 
     $ ./gt.sh pl
 
+### ps: Push
+
+Push all commits for the current branch
+
+__Usage__
+
+Push all commits for the current branch
+
+    $ ./gt.sh ps
+
 ### de: Delete
 
 Delete a branch, or list of branches
@@ -133,4 +143,4 @@ Could also be written as
 
 Or any other way you can imagine it.
 
-The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, de - or anyother command name that I might have forgotten to list here
+The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, ps, de - or anyother command name that I might have forgotten to list here
