@@ -15,97 +15,97 @@ variablesCount=0
 
 # The complete list of arguments passed in as an array
 for argument; do
-	case $argument in
-		st)
-			status=true;;
-		br)
-			branch=true;;
-		ad)
-		  add=true;;
-		cm)
-		  commit=true;;
-		de)
-			delete=true;;
-		-d)
-			flagDelete=true;;
-		-D)
-			flagForceDelete=true;;
-		*)
-			variables[variablesCount]="$argument"
-			((variablesCount+=1));;
-	esac
+  case $argument in
+    st)
+      status=true;;
+    br)
+      branch=true;;
+    ad)
+      add=true;;
+    cm)
+      commit=true;;
+    de)
+      delete=true;;
+    -d)
+      flagDelete=true;;
+    -D)
+      flagForceDelete=true;;
+    *)
+      variables[variablesCount]="$argument"
+      ((variablesCount+=1));;
+  esac
 done
 
 #st: status
 gt__st () {
-	clear
-	git branch
-	git status
+  clear
+  git branch
+  git status
 }
 
 # br: branch
 gt__br () {
 
-	branch=${variables[0]}
+  branch=${variables[0]}
 
-	if [ -z $branch ]; then
-		git branch
-		exit 0
-	fi
+  if [ -z $branch ]; then
+    git branch
+    exit 0
+  fi
 
-	if [ $flagDelete = true ] || [ $flagForceDelete = true ]; then
-		gt__de
-		exit 0
-	fi
+  if [ $flagDelete = true ] || [ $flagForceDelete = true ]; then
+    gt__de
+    exit 0
+  fi
 
-	checkout="`git checkout $branch 2>&1`"
+  checkout="`git checkout $branch 2>&1`"
 
-	if [ $? -eq 0 ]; then
-		echo $checkout
-		exit 0
-	else
-		git checkout ${variables[1]:-master}
-		git checkout -b $branch
-		exit 0
-	fi
+  if [ $? -eq 0 ]; then
+    echo $checkout
+    exit 0
+  else
+    git checkout ${variables[1]:-master}
+    git checkout -b $branch
+    exit 0
+  fi
 
 }
 
 gt__ad () {
   files=$(IFS=, ; echo "${variables[*]}")
-	if [ -z $files ]; then
-	  files=.
-	fi
-	git add $files
-	exit 0
+  if [ -z $files ]; then
+    files=.
+  fi
+  git add $files
+  exit 0
 }
 
 gt__cm () {
-	local commitMessage='git commit';
-	if [ ! -z "${variables[0]}" ]; then
-		commitMessage="${commitMessage} -m \"${variables[0]}\""
-	fi
-	eval $commitMessage
-	exit 0
+  local commitMessage='git commit';
+  if [ ! -z "${variables[0]}" ]; then
+    commitMessage="${commitMessage} -m \"${variables[0]}\""
+  fi
+  eval $commitMessage
+  exit 0
 }
 
 gt__de () {
 
-	if [ -z ${variables[0]} ]; then
-		echo No branch selected
-		exit 1;
-	fi
+  if [ -z ${variables[0]} ]; then
+    echo No branch selected
+    exit 1;
+  fi
 
-	deleteString='-d'
-	if [ $flagForceDelete = true ]; then
-		deleteString='-D'
-	fi
+  deleteString='-d'
+  if [ $flagForceDelete = true ]; then
+    deleteString='-D'
+  fi
 
-	for deleteBranch in ${variables[@]}; do
-		git branch $deleteString $deleteBranch
-	done
+  for deleteBranch in ${variables[@]}; do
+    git branch $deleteString $deleteBranch
+  done
 
-	exit 0
+  exit 0
 
 }
 
@@ -115,23 +115,23 @@ gt__de () {
 # remote add
 
 if [ $status = true ]; then
-	gt__st
-	exit 0
+  gt__st
+  exit 0
 fi
 
 if [ $branch = true ]; then
-	gt__br
-	exit 0
+  gt__br
+  exit 0
 fi
 
 if [ $add = true ]; then
-	gt__ad
-	exit 0
+  gt__ad
+  exit 0
 fi
 
 if [ $commit = true ]; then
   gt__cm
-	exit 0
+  exit 0
 fi
 
 # pull
@@ -142,8 +142,8 @@ fi
 # stash
 
 if [ $delete = true ]; then
-	gt__de
-	exit 0
+  gt__de
+  exit 0
 fi
 
 unset -f gt__br gt__st
