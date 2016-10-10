@@ -1,4 +1,5 @@
 # The default set of options
+clone=false
 status=false
 branch=false
 add=false
@@ -20,6 +21,8 @@ variablesCount=0
 # The complete list of arguments passed in as an array
 for argument; do
   case $argument in
+    cl)
+      clone=true;;
     st)
       status=true;;
     br)
@@ -52,14 +55,20 @@ __getCurrentBranchName () {
   echo "`git rev-parse --abbrev-ref HEAD`"
 }
 
-#st: status
+gt__cl () {
+  if [ -z ${variables[0]} ]; then
+    echo Please specify a remote url when cloning: gt cl <url> [<folder>]
+  fi
+
+  git clone ${variables[0]} ${variables[1]}
+}
+
 gt__st () {
   clear
   git branch
   git status
 }
 
-# br: branch
 gt__br () {
   branch=${variables[0]}
 
@@ -161,7 +170,11 @@ gt__rb () {
 
 # Run commands in order of importance
 
-# clone
+if [ $clone = true ]; then
+  gt__cl
+  exit 0
+fi
+
 # remote add (remember to init)
 
 if [ $status = true ]; then
@@ -212,7 +225,7 @@ fi
 # fetch
 # stash
 
-unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
-unset -v status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
+unset -f gt__cl gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
+unset -v clone status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
 
 exit 0
