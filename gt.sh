@@ -1,3 +1,9 @@
+# Get the root directory
+rootDirectory="${BASH_SOURCE%/*}"
+if [[ ! -d "$rootDirectory" ]]; then
+  rootDirectory="$PWD";
+fi
+
 # The default set of options
 clone=false
 remoteAdd=false
@@ -56,62 +62,6 @@ done
 
 __getCurrentBranchName () {
   echo "`git rev-parse --abbrev-ref HEAD`"
-}
-
-gt__cl () {
-  if [ -z ${variables[0]} ]; then
-    echo Please specify a remote url when cloning: gt cl <url> [<folder>]
-  fi
-
-  git clone ${variables[0]} ${variables[1]}
-}
-
-gt__ra () {
-  if [ -z ${variables[0]} ]; then
-    echo 'Please specify a remote url when adding a remote: gt ra <url>'
-  fi
-
-  git init
-  git remote add origin ${variables[0]}
-}
-
-gt__st () {
-  clear
-  git branch
-  git status
-}
-
-gt__br () {
-  branch=${variables[0]}
-
-  if [ -z $branch ]; then
-    git branch
-  fi
-
-  if [ $flagDelete = true ] || [ $flagForceDelete = true ]; then
-    gt__de
-  fi
-
-  checkout="`git checkout $branch 2>&1`"
-
-  if [ $? -eq 0 ]; then
-    echo "$checkout"
-  else
-    git checkout ${variables[1]:-master}
-    git checkout -b $branch
-  fi
-
-  unset -v branch checkout
-  exit 0
-}
-
-gt__ad () {
-  local files=$(IFS=, ; echo "${variables[*]}")
-  if [ -z $files ]; then
-    files=.
-  fi
-  git add $files
-  exit 0
 }
 
 gt__cm () {
@@ -182,58 +132,47 @@ gt__rb () {
 # Run commands in order of importance
 
 if [ $clone = true ]; then
-  gt__cl
-  exit 0
+  . $rootDirectory/lib/cl/gt-cl.sh
 fi
 
 if [ $remoteAdd = true ]; then
-  gt__ra
-  exit 0
+  . $rootDirectory/lib/ra/gt-ra.sh
 fi
 
 if [ $status = true ]; then
-  gt__st
-  exit 0
+  . $rootDirectory/lib/st/gt-st.sh
 fi
 
 if [ $branch = true ]; then
-  gt__br
-  exit 0
+  . $rootDirectory/lib/br/gt-br.sh
 fi
 
 if [ $add = true ]; then
-  gt__ad
-  exit 0
+  . $rootDirectory/lib/ad/gt-ad.sh
 fi
 
 if [ $commit = true ]; then
   gt__cm
-  exit 0
 fi
 
 if [ $pull = true ]; then
   gt__pl
-  exit 0
 fi
 
 if [ $push = true ]; then
   gt__ps
-  exit 0
 fi
 
 if [ $delete = true ]; then
   gt__de
-  exit 0
 fi
 
 if [ $merge = true ]; then
   gt__mg
-  exit 0
 fi
 
 if [ $rebase = true ]; then
   gt__rb
-  exit 0
 fi
 
 unset -f gt__cl gt__ra gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
