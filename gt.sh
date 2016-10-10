@@ -7,6 +7,7 @@ pull=false
 push=false
 delete=false
 merge=false
+rebase=false
 
 # The default list of flags
 flagDelete=false
@@ -35,6 +36,8 @@ for argument; do
       delete=true;;
     mg)
       merge=true;;
+    rb)
+      rebase=true;;
     -d)
       flagDelete=true;;
     -D)
@@ -142,6 +145,20 @@ gt__mg () {
   git merge $branch
 }
 
+gt__rb () {
+  if [ -z ${variables[0]} ]; then
+    echo 'Please select a branch to rebase your current branch on top of: gt rb <branch>'
+    exit 1
+  fi
+
+  local branch=${variables[0]}
+  local currentBranch=$(__getCurrentBranchName)
+  git checkout $branch
+  git pull origin $branch
+  git checkout $currentBranch
+  git rebase $branch
+}
+
 # Run commands in order of importance
 
 # clone
@@ -187,12 +204,15 @@ if [ $merge = true ]; then
   exit 0
 fi
 
-# merge
-# rebase
+if [ $rebase = true ]; then
+  gt__rb
+  exit 0
+fi
+
 # fetch
 # stash
 
-unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg
-unset -v status branch add commit pull push delete merge flagDelete flagForceDelete variables variablesCount
+unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
+unset -v status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
 
 exit 0

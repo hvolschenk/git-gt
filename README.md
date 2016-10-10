@@ -2,6 +2,17 @@
 --------
 Faster git. For now as a shell script, will still think about packaging once more functions are added.
 
+
+## Setting up
+
+Setting up git-gt is simple. Clone the repository and create an alias pointing to the sheel script with:
+
+    alias gt='~/Software/git-gt/gt.sh'
+
+If you are unsure where to place the above line, you can read my [Bash alias tutorial](http://hvolschenk.blogspot.co.za/2016/10/bash-aliases_6.html).
+
+## Commands:
+
 ### st: Status
 
 Clears the terminal, shows a list of branches, and the current status
@@ -10,7 +21,7 @@ __Usage:__
 
 Show the status
 
-    $ ./gt.sh st
+    $ gt st
 
 ### br: Branch
 
@@ -25,35 +36,35 @@ __Usage:__
 
 Show a list of all branches
 
-    $ ./gt.sh br
+    $ gt br
 
 Switch to (check out) a branch
 
-    $ ./gt.sh br branch-name
+    $ gt br branch-name
 
 _This will check out a branch by the name 'branch-name'. However, if a branch by the name 'branch-name' does not exist, master will be checked out and a new branch by the name 'branch-name' will be created._
 
 Create a new branch
 
-    $ ./gt.sh br new-branch-name
+    $ gt br new-branch-name
 
 _This will check out master and then check out a new branch with the name 'new-branch-name'._
 
 Create a new branch from an existing branch
 
-    $ ./gt.sh br new-branch-name existing-branch-name
+    $ gt br new-branch-name existing-branch-name
 
 _This will check out 'existing-branch-name' and the check out a new branch with the name 'new-branch-name'._
 
 Delete a branch or a list of branches
 
-    $ ./gt.sh br -d branch-name other-branch-name
+    $ gt br -d branch-name other-branch-name
 
 _This will delete both 'branch-name' and 'other-branch-name'._
 
 Force delete a branch or a list of branches
 
-    $ ./gt.sh br -D branch-name other-branch-name
+    $ gt br -D branch-name other-branch-name
 
 _This will force delete 'branch-name' and 'other-branch-name'._
 
@@ -65,11 +76,11 @@ __Usage__
 
 Add all unstaged files to the staging area
 
-    $ ./gt.sh ad
+    $ gt ad
 
 Add a specific list of files to the staging area
 
-    $ ./gt.sh ad file-name other-file-name
+    $ gt ad file-name other-file-name
 
 ### cm: Commit
 
@@ -79,11 +90,11 @@ __Usage__
 
 Commit, letting git decide the editor for editing commit messages
 
-    $ ./gt.sh cm
+    $ gt cm
 
 Commit, adding the commit message in the command
 
-    $ ./gt.sh cm "Commit message here"
+    $ gt cm "Commit message here"
 
 ### pl: Pull
 
@@ -93,7 +104,7 @@ __Usage__
 
 Pull the latest changes for your current branch
 
-    $ ./gt.sh pl
+    $ gt pl
 
 ### ps: Push
 
@@ -103,7 +114,7 @@ __Usage__
 
 Push all commits for the current branch
 
-    $ ./gt.sh ps
+    $ gt ps
 
 ### de: Delete
 
@@ -117,13 +128,13 @@ __Usage:__
 
 Delete a branch or a list of branches
 
-    $ ./gt.sh de branch-name other-branch-name
+    $ gt de branch-name other-branch-name
 
 _Deletes 'branch-name' and 'other-branch-name' branches._
 
 Force delete a branch or a list of branches
 
-    $ ./gt.sh de -D branch-name other-branch-name
+    $ gt de -D branch-name other-branch-name
 
 _Force deletes the 'branch-name' and 'other-branch-name' branches._
 
@@ -135,24 +146,36 @@ __Usage__
 
 Merge a branch into yours (master for example, and in most cases)
 
-    $ ./gt.sh mg master
+    $ gt mg master
 
 _This wil check-out master, pull it, check-out your current branch, and merge master into it._
+
+### rb: Rebase
+
+Rebases your current branch onto the end of the given branch
+
+__Usage__
+
+Rebase your branch onto another branch (master in this example, and probably in most cases)
+
+    $ gt rb master
+
+_This wil check-out master, pull it, check-out your current branch, and rebase your current branch onto the end of master._
 
 ### Notes
 
 All commands listed above can be run in any order. Ex:
 
-    $ ./gt.sh br -d branch other-branch
+    $ gt br -d branch other-branch
 
 Could also be written as
 
-    $ ./gt.sh other-branch br branch -d
+    $ gt other-branch br branch -d
 
 Could also be written as
 
-    $ ./gt.sh branch other-branch br -d
+    $ gt branch other-branch br -d
 
 Or any other way you can imagine it.
 
-The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, ps, de, mg - or anyother command name that I might have forgotten to list here
+The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, ps, de, mg, rb - or anyother command name that I might have forgotten to list here
