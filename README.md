@@ -5,7 +5,7 @@ Faster git. For now as a shell script, will still think about packaging once mor
 
 ## Setting up
 
-Setting up git-gt is simple. Clone the repository and create an alias pointing to the sheel script with:
+Setting up git-gt is simple. Clone the repository and create an alias pointing to the shell script with:
 
     alias gt='~/Software/git-gt/gt.sh'
 
