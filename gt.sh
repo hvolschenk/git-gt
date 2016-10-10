@@ -6,6 +6,7 @@ commit=false
 pull=false
 push=false
 delete=false
+merge=false
 
 # The default list of flags
 flagDelete=false
@@ -32,6 +33,8 @@ for argument; do
       push=true;;
     de)
       delete=true;;
+    mg)
+      merge=true;;
     -d)
       flagDelete=true;;
     -D)
@@ -55,7 +58,6 @@ gt__st () {
 
 # br: branch
 gt__br () {
-
   branch=${variables[0]}
 
   if [ -z $branch ]; then
@@ -71,14 +73,13 @@ gt__br () {
   checkout="`git checkout $branch 2>&1`"
 
   if [ $? -eq 0 ]; then
-    echo $checkout
+    echo "$checkout"
     exit 0
   else
     git checkout ${variables[1]:-master}
     git checkout -b $branch
     exit 0
   fi
-
 }
 
 gt__ad () {
@@ -110,9 +111,8 @@ gt__ps () {
 }
 
 gt__de () {
-
   if [ -z ${variables[0]} ]; then
-    echo No branch selected
+    echo 'Please select a branch to delete: gt de <...branch>'
     exit 1;
   fi
 
@@ -126,13 +126,26 @@ gt__de () {
   done
 
   exit 0
+}
 
+gt__mg () {
+  if [ -z ${variables[0]} ]; then
+    echo 'Please select a branch to merge into your current branch: gt mg <branch>'
+    exit 1
+  fi
+
+  local branch=${variables[0]}
+  local currentBranch=$(__getCurrentBranchName)
+  git checkout $branch
+  git pull origin $branch
+  git checkout $currentBranch
+  git merge $branch
 }
 
 # Run commands in order of importance
 
 # clone
-# remote add
+# remote add (remember to init)
 
 if [ $status = true ]; then
   gt__st
@@ -164,18 +177,22 @@ if [ $push = true ]; then
   exit 0
 fi
 
-# merge
-# rebase
-# fetch
-# push
-# stash
-
 if [ $delete = true ]; then
   gt__de
   exit 0
 fi
 
-unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de
-unset -v status branch add commit pull push delete flagDelete flagForceDelete variables variablesCount
+if [ $merge = true ]; then
+  gt__mg
+  exit 0
+fi
+
+# merge
+# rebase
+# fetch
+# stash
+
+unset -f gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg
+unset -v status branch add commit pull push delete merge flagDelete flagForceDelete variables variablesCount
 
 exit 0

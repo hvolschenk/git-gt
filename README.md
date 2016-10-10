@@ -127,6 +127,18 @@ Force delete a branch or a list of branches
 
 _Force deletes the 'branch-name' and 'other-branch-name' branches._
 
+### mg: Merge
+
+Merges another branch into your current branch
+
+__Usage__
+
+Merge a branch into yours (master for example, and in most cases)
+
+    $ ./gt.sh mg master
+
+_This wil check-out master, pull it, check-out your current branch, and merge master into it._
+
 ### Notes
 
 All commands listed above can be run in any order. Ex:
@@ -143,4 +155,4 @@ Could also be written as
 
 Or any other way you can imagine it.
 
-The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, ps, de - or anyother command name that I might have forgotten to list here
+The only drawback to this is that there are certain branch names that cannot be used because of this, these are: st, br, ad, cm, pl, ps, de, mg - or anyother command name that I might have forgotten to list here
