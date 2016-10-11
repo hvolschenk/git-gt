@@ -13,180 +13,19 @@ If you are unsure where to place the above line, you can read my [Bash alias tut
 
 ## Commands:
 
-### cl: Clone
-
-Clone a repository onto your local machine
-
-__Usage__
-
-Clone from a url
-
-    $ gt cl git://path.to.repository
-
-Clone a url into a specific folder
-
-    $ gt cl git://path.to.repository folder-name
-
-### ra: Remote add
-
-Add a remote repository url
-
-__Usage__
-
-Add a remote repository url
-
-    $ gt ra git://path.to.repository
-
-_This initializes an empty git repository in the current folder and adds the remote url to the current folder._
-
-### st: Status
-
-Clears the terminal, shows a list of branches, and the current status
-
-__Usage:__
-
-Show the status
-
-    $ gt st
-
-### br: Branch
-
-Switch to, or create, a new branch
-
-__Flags:__
-
-* -d: Delete a branch
-* -D: Force delete a branch
-
-__Usage:__
-
-Show a list of all branches
-
-    $ gt br
-
-Switch to (check out) a branch
-
-    $ gt br branch-name
-
-_This will check out a branch by the name 'branch-name'. However, if a branch by the name 'branch-name' does not exist, master will be checked out and a new branch by the name 'branch-name' will be created._
-
-Create a new branch
-
-    $ gt br new-branch-name
-
-_This will check out master and then check out a new branch with the name 'new-branch-name'._
-
-Create a new branch from an existing branch
-
-    $ gt br new-branch-name existing-branch-name
-
-_This will check out 'existing-branch-name' and the check out a new branch with the name 'new-branch-name'._
-
-Delete a branch or a list of branches
-
-    $ gt br -d branch-name other-branch-name
-
-_This will delete both 'branch-name' and 'other-branch-name'._
-
-Force delete a branch or a list of branches
-
-    $ gt br -D branch-name other-branch-name
-
-_This will force delete 'branch-name' and 'other-branch-name'._
-
-### ad: Add
-
-Add a file or files to the staging area
-
-__Usage__
-
-Add all unstaged files to the staging area
-
-    $ gt ad
-
-Add a specific list of files to the staging area
-
-    $ gt ad file-name other-file-name
-
-### cm: Commit
-
-Commit your changes
-
-__Usage__
-
-Commit, letting git decide the editor for editing commit messages
-
-    $ gt cm
-
-Commit, adding the commit message in the command
-
-    $ gt cm "Commit message here"
-
-### pl: Pull
-
-Pull the latest changes for your current branch
-
-__Usage__
-
-Pull the latest changes for your current branch
-
-    $ gt pl
-
-### ps: Push
-
-Push all commits for the current branch
-
-__Usage__
-
-Push all commits for the current branch
-
-    $ gt ps
-
-### de: Delete
-
-Delete a branch, or list of branches
-
-__Flags:__
-
-* -D: Force delete a branch
-
-__Usage:__
-
-Delete a branch or a list of branches
-
-    $ gt de branch-name other-branch-name
-
-_Deletes 'branch-name' and 'other-branch-name' branches._
-
-Force delete a branch or a list of branches
-
-    $ gt de -D branch-name other-branch-name
-
-_Force deletes the 'branch-name' and 'other-branch-name' branches._
-
-### mg: Merge
-
-Merges another branch into your current branch
-
-__Usage__
-
-Merge a branch into yours (master for example, and in most cases)
-
-    $ gt mg master
-
-_This wil check-out master, pull it, check-out your current branch, and merge master into it._
-
-### rb: Rebase
-
-Rebases your current branch onto the end of the given branch
-
-__Usage__
-
-Rebase your branch onto another branch (master in this example, and probably in most cases)
-
-    $ gt rb master
-
-_This wil check-out master, pull it, check-out your current branch, and rebase your current branch onto the end of master._
+Currently the following commands are available:
+
+* [ad: Add](lib/ad)
+* [br: Branch](lib/br)
+* [cl: Clone](lib/cl)
+* [cm: Commit](lib/cm)
+* [de: Delete](lib/de)
+* [mg: Merge](lib/mg)
+* [pl: Pull](lib/pl)
+* [ps: Push](lib/ps)
+* [ra: Remote add](lib/ra)
+* [rb: Rebase](lib/rb)
+* [st: Status](lib/st)
 
 ### Notes
 
