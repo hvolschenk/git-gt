@@ -5,7 +5,7 @@ if [ -z $branch ]; then
   git branch
 else
   if [ $flagDelete = true ] || [ $flagForceDelete = true ]; then
-    gt__de
+    . $rootDirectory/lib/de/gt-de.sh
   else
     checkout="`git checkout $branch 2>&1`"
     if [ $? -eq 0 ]; then
