@@ -64,38 +64,6 @@ __getCurrentBranchName () {
   echo "`git rev-parse --abbrev-ref HEAD`"
 }
 
-gt__de () {
-  if [ -z ${variables[0]} ]; then
-    echo 'Please select a branch to delete: gt de <...branch>'
-    exit 1;
-  fi
-
-  local deleteString='-d'
-  if [ $flagForceDelete = true ]; then
-    deleteString='-D'
-  fi
-
-  for deleteBranch in ${variables[@]}; do
-    git branch $deleteString $deleteBranch
-  done
-
-  exit 0
-}
-
-gt__mg () {
-  if [ -z ${variables[0]} ]; then
-    echo 'Please select a branch to merge into your current branch: gt mg <branch>'
-    exit 1
-  fi
-
-  local branch=${variables[0]}
-  local currentBranch=$(__getCurrentBranchName)
-  git checkout $branch
-  git pull origin $branch
-  git checkout $currentBranch
-  git merge $branch
-}
-
 gt__rb () {
   if [ -z ${variables[0]} ]; then
     echo 'Please select a branch to rebase your current branch on top of: gt rb <branch>'
@@ -145,11 +113,11 @@ if [ $push = true ]; then
 fi
 
 if [ $delete = true ]; then
-  gt__de
+  . $rootDirectory/lib/de/gt-de.sh
 fi
 
 if [ $merge = true ]; then
-  gt__mg
+  . $rootDirectory/lib/mg/gt-mg.sh
 fi
 
 if [ $rebase = true ]; then
