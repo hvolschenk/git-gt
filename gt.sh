@@ -64,25 +64,6 @@ __getCurrentBranchName () {
   echo "`git rev-parse --abbrev-ref HEAD`"
 }
 
-gt__cm () {
-  local commitMessage='git commit';
-  if [ ! -z "${variables[0]}" ]; then
-    commitMessage="${commitMessage} -m \"${variables[0]}\""
-  fi
-  eval $commitMessage
-  exit 0
-}
-
-gt__pl () {
-  git pull origin $(__getCurrentBranchName)
-  exit 0
-}
-
-gt__ps () {
-  git push origin $(__getCurrentBranchName)
-  exit 0
-}
-
 gt__de () {
   if [ -z ${variables[0]} ]; then
     echo 'Please select a branch to delete: gt de <...branch>'
@@ -152,15 +133,15 @@ if [ $add = true ]; then
 fi
 
 if [ $commit = true ]; then
-  gt__cm
+  . $rootDirectory/lib/cm/gt-cm.sh
 fi
 
 if [ $pull = true ]; then
-  gt__pl
+  . $rootDirectory/lib/pl/gt-pl.sh
 fi
 
 if [ $push = true ]; then
-  gt__ps
+  . $rootDirectory/lib/ps/gt-ps.sh
 fi
 
 if [ $delete = true ]; then
