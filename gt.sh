@@ -64,20 +64,6 @@ __getCurrentBranchName () {
   echo "`git rev-parse --abbrev-ref HEAD`"
 }
 
-gt__rb () {
-  if [ -z ${variables[0]} ]; then
-    echo 'Please select a branch to rebase your current branch on top of: gt rb <branch>'
-    exit 1
-  fi
-
-  local branch=${variables[0]}
-  local currentBranch=$(__getCurrentBranchName)
-  git checkout $branch
-  git pull origin $branch
-  git checkout $currentBranch
-  git rebase $branch
-}
-
 # Run commands in order of importance
 
 if [ $clone = true ]; then
@@ -121,10 +107,10 @@ if [ $merge = true ]; then
 fi
 
 if [ $rebase = true ]; then
-  gt__rb
+  . $rootDirectory/lib/rb/gt-rb.sh
 fi
 
-unset -f gt__cl gt__ra gt__br gt__st gt__ad gt__cm gt__pl gt__ps gt__de gt__mg gt__rb
+unset -f __getCurrentBranchName
 unset -v clone remoteAdd status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
 
 exit 0
