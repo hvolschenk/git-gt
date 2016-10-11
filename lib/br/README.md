@@ -9,6 +9,10 @@ Switch to, or create, a new branch
 
 ### Usage
 
+```
+$ gt br [branch [from-branch] [-Dd]]
+```
+
 __Show a list of all branches__
 
 ```
