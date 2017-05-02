@@ -4,7 +4,7 @@ if [[ ! -d "$rootDirectory" ]]; then
   rootDirectory="$PWD";
 fi
 
-let clone=remoteAdd=status=branch=add=commit=pull=push=delete=merge=rebase=false
+let clone=remoteAdd=status=branch=add=commit=pull=push=delete=merge=rebase=false=diff
 let flagDelete=flagForceDelete=false
 
 # The list of extra variables passed to the method
@@ -25,6 +25,7 @@ for argument; do
     de) delete=true;;
     mg) merge=true;;
     rb) rebase=true;;
+    df) diff=true;;
     -d) flagDelete=true;;
     -D) flagForceDelete=true;;
     *)
@@ -72,6 +73,10 @@ else
                   else
                     if [ $rebase = true ]; then
                       . $rootDirectory/lib/rb/gt-rb.sh
+                    else
+                      if [ $diff = true ]; then
+                        . $rootDirectory/lib/df/gt-df.sh
+                      fi
                     fi
                   fi
                 fi

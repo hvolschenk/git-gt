@@ -9,7 +9,7 @@ Setting up git-gt is simple. Clone the repository and create an alias pointing t
 
     alias gt='~/Software/git-gt/gt.sh'
 
-If you are unsure where to place the above line, you can read my [Bash alias tutorial](http://hvolschenk.blogspot.co.za/2016/10/bash-aliases_6.html).
+If you are unsure where to place the above line, you can read my [Bash alias tutorial](https://medium.com/@righteous.trespasser/bash-aliases-1b74175e8648).
 
 ## Commands:
 
@@ -26,6 +26,7 @@ Currently the following commands are available:
 * [ra: Remote add](lib/ra)
 * [rb: Rebase](lib/rb)
 * [st: Status](lib/st)
+* [df: Diff](lib/df)
 
 ### Notes
 
