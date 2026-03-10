@@ -27,6 +27,7 @@ Currently the following commands are available:
 * [rb: Rebase](lib/rb)
 * [st: Status](lib/st)
 * [df: Diff](lib/df)
+* [us: Upstream](lib/us)
 
 ### Notes
 

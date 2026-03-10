@@ -26,6 +26,7 @@ for argument; do
     mg) merge=true;;
     rb) rebase=true;;
     df) diff=true;;
+    us) upstream=true;;
     -d) flagDelete=true;;
     -D) flagForceDelete=true;;
     *)
@@ -74,8 +75,12 @@ else
                     if [ $rebase = true ]; then
                       . $rootDirectory/lib/rb/gt-rb.sh
                     else
-                      if [ $diff = true ]; then
+                      if [ "$diff" = true ]; then
                         . $rootDirectory/lib/df/gt-df.sh
+                      else
+                        if [ "$upstream" = true ]; then
+                          . $rootDirectory/lib/us/gt-us.sh
+                        fi
                       fi
                     fi
                   fi
