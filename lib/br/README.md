@@ -40,11 +40,11 @@ $ git checkout branch-name
 or
 
 ```
-$ git checkout master
+$ git checkout main
 $ git checkout -b branch-name
 ```
 
-_This will check out a branch by the name 'branch-name'. However, if a branch by the name 'branch-name' does not exist, master will be checked out and a new branch by the name 'branch-name' will be created._
+_This will check out a branch by the name 'branch-name'. However, if a branch by the name 'branch-name' does not exist, main will be checked out and a new branch by the name 'branch-name' will be created._
 
 __Create a new branch__
 
@@ -55,7 +55,7 @@ $ gt br nonexistant-branch-name
 which mimics
 
 ```
-$ git checkout master
+$ git checkout main
 $ git checkout -b nonexistant-branch-name
 ```
 
