@@ -11,14 +11,14 @@ $ gt mg [branch-name]
 __Merge a branch into yours__
 
 ```
-$ gt mg master
+$ gt mg main
 ```
 
 which mimics
 
 ```
-$ git checkout master
-$ git pull origin master
+$ git checkout main
+$ git pull origin main
 $ git checkout current-branch-name
-$ git merge master
+$ git merge main
 ```

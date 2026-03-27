@@ -4,7 +4,7 @@ if [[ ! -d "$rootDirectory" ]]; then
   rootDirectory="$PWD";
 fi
 
-let clone=remoteAdd=status=branch=add=commit=pull=push=delete=merge=rebase=false=diff
+let clone=remoteAdd=status=branch=add=commit=pull=push=delete=merge=rebase=diff=upstream=false
 let flagDelete=flagForceDelete=false
 
 # The list of extra variables passed to the method
@@ -26,6 +26,7 @@ for argument; do
     mg) merge=true;;
     rb) rebase=true;;
     df) diff=true;;
+    us) upstream=true;;
     -d) flagDelete=true;;
     -D) flagForceDelete=true;;
     *)
@@ -34,62 +35,79 @@ for argument; do
   esac
 done
 
+# This should only be run right at the end
+# As it removes some necessary functions for the running of this script
+__end () {
+  unset -v clone remoteAdd status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
+  unset -f __getCurrentBranchName
+  exit 0
+}
+
 __getCurrentBranchName () {
   echo "`git rev-parse --abbrev-ref HEAD`"
 }
 
-# Run commands in order of importance, the way I do it might seem silly but it
-# removes the ned for a bunch of 'exit's and this way I can unset the variables
-# every time right at the end
-if [ $clone = true ]; then
-  . $rootDirectory/lib/cl/gt-cl.sh
-else
-  if [ $remoteAdd = true ]; then
-    . $rootDirectory/lib/ra/gt-ra.sh
-  else
-    if [ $status = true ]; then
-      . $rootDirectory/lib/st/gt-st.sh
-    else
-      if [ $branch = true ]; then
-        . $rootDirectory/lib/br/gt-br.sh
-      else
-        if [ $add = true ]; then
-          . $rootDirectory/lib/ad/gt-ad.sh
-        else
-          if [ $commit = true ]; then
-            . $rootDirectory/lib/cm/gt-cm.sh
-          else
-            if [ $pull = true ]; then
-              . $rootDirectory/lib/pl/gt-pl.sh
-            else
-              if [ $push = true ]; then
-                . $rootDirectory/lib/ps/gt-ps.sh
-              else
-                if [ $delete = true ]; then
-                  . $rootDirectory/lib/de/gt-de.sh
-                else
-                  if [ $merge = true ]; then
-                    . $rootDirectory/lib/mg/gt-mg.sh
-                  else
-                    if [ $rebase = true ]; then
-                      . $rootDirectory/lib/rb/gt-rb.sh
-                    else
-                      if [ $diff = true ]; then
-                        . $rootDirectory/lib/df/gt-df.sh
-                      fi
-                    fi
-                  fi
-                fi
-              fi
-            fi
-          fi
-        fi
-      fi
-    fi
-  fi
+if [ "$clone" = true ]; then
+  source $rootDirectory/lib/cl/gt-cl.sh
+  __end
 fi
 
-unset -f __getCurrentBranchName
-unset -v clone remoteAdd status branch add commit pull push delete merge rebase flagDelete flagForceDelete variables variablesCount
+if [ "$remoteAdd" = true ]; then
+  source $rootDirectory/lib/ra/gt-ra.sh
+  __end
+fi
 
-exit 0
+if [ "$status" = true ]; then
+  source $rootDirectory/lib/st/gt-st.sh
+  __end
+fi
+
+if [ "$branch" = true ]; then
+  source $rootDirectory/lib/br/gt-br.sh
+  __end
+fi
+
+if [ "$add" = true ]; then
+  source $rootDirectory/lib/ad/gt-ad.sh
+  __end;
+fi
+
+if [ "$commit" = true ]; then
+  source $rootDirectory/lib/cm/gt-cm.sh
+  __end
+fi
+
+if [ "$pull" = true ]; then
+  source $rootDirectory/lib/pl/gt-pl.sh
+  __end
+fi
+
+if [ "$push" = true ]; then
+  source $rootDirectory/lib/ps/gt-ps.sh
+  __end
+fi
+
+if [ "$delete" = true ]; then
+  source $rootDirectory/lib/de/gt-de.sh
+  __end
+fi
+
+if [ "$merge" = true ]; then
+  source $rootDirectory/lib/mg/gt-mg.sh
+  __end
+fi
+
+if [ "$rebase" = true ]; then
+  source $rootDirectory/lib/rb/gt-rb.sh
+  __end
+fi
+
+if [ "$diff" = true ]; then
+  source $rootDirectory/lib/df/gt-df.sh
+  __end
+fi
+
+if [ "$upstream" = true ]; then
+  source $rootDirectory/lib/us/gt-us.sh
+  __end
+fi

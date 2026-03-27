@@ -11,14 +11,14 @@ $ gt rb branch-name
 __Rebase your branch onto another branch__
 
 ```
-$ gt rb master
+$ gt rb main
 ```
 
 which mimics
 
 ```
-$ git checkout master
-$ git pull origin master
+$ git checkout main
+$ git pull origin main
 $ git checkout current-branch-name
-$ git rebase master
+$ git rebase main
 ```

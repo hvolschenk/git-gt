@@ -11,7 +11,7 @@ else
     if [ $? -eq 0 ]; then
       echo "$checkout"
     else
-      git checkout ${variables[1]:-master}
+      git checkout ${variables[1]:-main}
       git checkout -b $branch
     fi
   fi
